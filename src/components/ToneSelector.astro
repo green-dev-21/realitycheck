@@ -1,0 +1,46 @@
+---
+const { currentTone = 'brutal' } = Astro.props;
+
+const tones = [
+  { id: 'friendly', label: 'Friendly', emoji: '💙' },
+  { id: 'brutal', label: 'Brutal', emoji: '🔥' },
+  { id: 'passive-aggressive', label: 'Passive-Aggressive', emoji: '😊' },
+  { id: 'corporate-hr', label: 'Corporate HR', emoji: '📊' },
+  { id: 'indian-parent', label: 'Indian Parent', emoji: '🇮🇳' },
+  { id: 'whatsapp', label: 'WhatsApp', emoji: '💬' },
+];
+---
+
+<div class="tone-selector">
+  {tones.map((tone) => (
+    <button
+      class="tone-btn"
+      class:list={{ active: currentTone === tone.id }}
+      data-tone={tone.id}
+    >
+      {tone.emoji} {tone.label}
+    </button>
+  ))}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.tone-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('realitycheck-tone', btn.dataset.tone);
+      });
+    });
+
+    const savedTone = localStorage.getItem('realitycheck-tone');
+    if (savedTone) {
+      const btn = document.querySelector(`.tone-btn[data-tone="${savedTone}"]`);
+      if (btn) {
+        document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+    }
+  });
+</script>

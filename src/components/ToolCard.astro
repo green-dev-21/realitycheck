@@ -1,0 +1,22 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  painLevel: number;
+  category: string;
+  slug: string;
+}
+
+const { title, description, painLevel, category, slug } = Astro.props;
+const skulls = '💀'.repeat(painLevel);
+---
+
+<a href={`/tools/${slug}`} class="tool-card">
+  <div class="pain">{skulls}</div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <div class="card-footer">
+    <span class="category-tag">{category}</span>
+    <span style="color:var(--muted);font-size:13px;font-weight:500;">Calculate &rarr;</span>
+  </div>
+</a>

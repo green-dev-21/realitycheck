@@ -1,0 +1,75 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+const seoKeywords = "AI job replacement calculator, automation risk, job security test, future of work";
+---
+<Layout title="AI Replacement Probability Generator — RealityCheck Tools" description="Find out how likely your job is to be automated. Spoiler: it's higher than you think." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>AI Replacement Probability Generator</h1>
+    <p class="subtitle">Find out how likely your job is to be automated (spoiler: it's higher than you think).</p>
+  </div>
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+    <div class="tool-input-group">
+      <label for="jobTitle">Your job title</label>
+      <select id="jobTitle">
+        <option value="writer">Writer / Content Creator</option>
+        <option value="designer">Designer</option>
+        <option value="programmer">Programmer</option>
+        <option value="manager">Middle Manager</option>
+        <option value="analyst">Data Analyst</option>
+        <option value="customer-support">Customer Support</option>
+        <option value="accountant">Accountant</option>
+        <option value="teacher">Teacher</option>
+        <option value="doctor">Doctor</option>
+        <option value="lawyer">Lawyer</option>
+      </select>
+    </div>
+    <div class="tool-input-group">
+      <label for="automationTasks">Percentage of your day spent on repetitive tasks (%)</label>
+      <input type="number" id="automationTasks" min="0" max="100" value="60" />
+    </div>
+    <div class="tool-input-group">
+      <label for="meetingHours">Hours per week in meetings that could be emails</label>
+      <input type="number" id="meetingHours" min="0" max="40" step="0.5" value="8" />
+    </div>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Am I Replaceable?</button>
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="risk-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+<script>
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var job = document.getElementById('jobTitle').value;
+    var rep = parseInt(document.getElementById('automationTasks').value) || 60;
+    var meet = parseFloat(document.getElementById('meetingHours').value) || 8;
+    var baseRisks = { writer: 45, designer: 35, programmer: 40, manager: 60, analyst: 65, 'customer-support': 80, accountant: 75, teacher: 25, doctor: 20, lawyer: 40 };
+    var base = baseRisks[job] || 50;
+    var prob = Math.min(99, base + (rep / 100) * 30 + (meet / 40) * 10);
+    var waste = meet * 52;
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var msgs = {
+      friendly: 'Your job is approximately <strong>' + prob.toFixed(0) + '%</strong> automatable. Consider learning skills AI can\'t replicate! 🌟',
+      brutal: 'Your job is <strong>' + prob.toFixed(0) + '%</strong> automatable and <strong>100% dependent</strong> on pretending meetings are productive. You spend ' + meet + 'h/week in ' + waste.toFixed(0) + ' hours/year of meetings that could be emails.',
+      'passive-aggressive': 'Only ' + prob.toFixed(0) + '% replaceable? I\'m sure AI will never replicate your unique talent for ' + meet + 'h of meetings. 😊',
+      'corporate-hr': 'Automation risk assessment: ' + prob.toFixed(0) + '% probability of role automation. Meeting efficiency index: ' + waste.toFixed(0) + ' hours/year below optimal. Recommend upskilling initiatives.',
+      'indian-parent': 'Beta, your job is ' + prob.toFixed(0) + '% replaceable by AI. ' + meet + 'h of meetings per week? Sharma ji\'s son automated his entire workflow and now works 2 hours a day.',
+      whatsapp: 'Bhai/sis, teri job ' + prob.toFixed(0) + '% replaceable hai AI se 🤖. Aur tu ' + meet + 'h/week meetings mein baitha hai jo email se ho sakti hain. ' + waste.toFixed(0) + ' hours/year waste! AI ready hai, tu ready? 👀'
+    };
+    var barColor = prob > 60 ? 'var(--error)' : 'var(--accent-amber)';
+    document.getElementById('result-text').innerHTML = msgs[t] || msgs.brutal;
+    document.getElementById('risk-results').innerHTML =
+      '<div style="margin-top:16px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;">' +
+      '<span style="color:var(--muted);font-size:13px;">Automation Risk</span>' +
+      '<span style="color:' + barColor + ';font-weight:600;font-size:13px;">' + prob.toFixed(0) + '%</span></div>' +
+      '<div style="height:8px;background:var(--hairline);border-radius:4px;overflow:hidden;">' +
+      '<div style="height:100%;width:' + prob + '%;background:' + barColor + ';border-radius:4px;"></div></div></div>' +
+      '<p style="margin-top:12px;font-size:13px;color:var(--muted);">Repetitive tasks: ' + rep + '% | Meeting waste: ' + waste.toFixed(0) + 'h/year</p>';
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

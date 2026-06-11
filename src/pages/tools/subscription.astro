@@ -1,0 +1,121 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+
+const seoKeywords = "subscription cost calculator, monthly expense tracker, vampire subscription, recurring payments calculator";
+---
+
+<Layout title="Subscription Vampire Tracker — RealityCheck Tools" description="Discover how much your 'small' monthly subscriptions silently drain from your wallet. Netflix, Spotify, gym, and more." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>Subscription Vampire Tracker</h1>
+    <p class="subtitle">Discover how much your 'small' monthly subscriptions silently drain from your wallet.</p>
+  </div>
+
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+
+    <div class="checkbox-group" id="subscriptions">
+      <div class="checkbox-item">
+        <input type="checkbox" id="sub-netflix" value="15.49" checked />
+        <label for="sub-netflix">Netflix <span class="price">$15.49/month</span></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="sub-spotify" value="10.99" checked />
+        <label for="sub-spotify">Spotify <span class="price">$10.99/month</span></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="sub-disney" value="10.99" checked />
+        <label for="sub-disney">Disney+ <span class="price">$10.99/month</span></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="sub-amazon" value="14.99" checked />
+        <label for="sub-amazon">Amazon Prime <span class="price">$14.99/month</span></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="sub-youtube" value="13.99" />
+        <label for="sub-youtube">YouTube Premium <span class="price">$13.99/month</span></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="sub-chatgpt" value="20" />
+        <label for="sub-chatgpt">ChatGPT Plus <span class="price">$20/month</span></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="sub-gym" />
+        <label for="sub-gym">Gym Membership</label>
+        <input type="number" id="gym-custom" placeholder="$50" min="0" max="500" style="width:80px;height:36px;font-size:14px;" />
+      </div>
+    </div>
+
+    <div class="tool-input-group">
+      <label for="custom-sub">Custom subscription ($/month)</label>
+      <input type="text" id="custom-sub" placeholder="e.g., 5.99, 12.99" />
+    </div>
+
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Drain My Wallet</button>
+
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="investment-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('#subscriptions input[type="checkbox"]:checked');
+    var monthlyTotal = 0;
+
+    checkboxes.forEach(function(cb) {
+      if (cb.value) {
+        monthlyTotal += parseFloat(cb.value) || 0;
+      } else if (cb.id === 'sub-gym') {
+        var gymCustom = document.getElementById('gym-custom').value;
+        monthlyTotal += parseFloat(gymCustom) || 0;
+      }
+    });
+
+    var customSub = document.getElementById('custom-sub').value;
+    if (customSub) {
+      customSub.split(',').forEach(function(s) {
+        monthlyTotal += parseFloat(s.trim()) || 0;
+      });
+    }
+
+    if (monthlyTotal === 0) { monthlyTotal = 15.49 + 10.99 + 10.99 + 14.99; }
+
+    var yearlyTotal = monthlyTotal * 12;
+    var fiveYearTotal = yearlyTotal * 5;
+    var sipValue = monthlyTotal * ((Math.pow(1 + 0.10 / 12, 120) - 1) / (0.10 / 12)) * (1 + 0.10 / 12);
+
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+
+    var msgs = {
+      'friendly': 'Your subscriptions use $' + monthlyTotal.toFixed(2) + '/month. That\'s $' + yearlyTotal.toFixed(2) + '/year. Maybe review them? 🌟',
+      'brutal': 'Your subscriptions silently consume <strong>$' + monthlyTotal.toFixed(2) + '/month</strong>. That\'s <strong>$' + yearlyTotal.toFixed(2) + '/year</strong> for services you definitely "use all the time."',
+      'passive-aggressive': 'Oh, you\'re spending $' + monthlyTotal.toFixed(2) + '/month on subscriptions. That\'s $' + yearlyTotal.toFixed(2) + '/year. No, it\'s totally worth it. 😊',
+      'corporate-hr': 'Per our financial audit, your subscription portfolio allocates $' + monthlyTotal.toFixed(2) + '/month. Annual liability: $' + yearlyTotal.toFixed(2) + '. Let\'s schedule a cost optimization sync.',
+      'indian-parent': 'Beta, you spend $' + monthlyTotal.toFixed(2) + ' every month on apps? That\'s $' + yearlyTotal.toFixed(2) + ' per year. I could have sent you to IIT for that.',
+      'whatsapp': 'Bhai, $' + monthlyTotal.toFixed(2) + '/month dete ho bas apps pe? 💸 Itne mein toh maine ghar ka ration bhi nikal liya. $' + yearlyTotal.toFixed(2) + '/year. Yeh sab cancel karo warna main hi tumhara subscription ban ke aa jaunga. 📞'
+    };
+
+    var msg = msgs[tone] || msgs.brutal;
+
+    var sarcasticMessages = [
+      'You\'ve spent <strong>$' + fiveYearTotal.toFixed(0) + '</strong> in the last 5 years. That\'s a ' + (fiveYearTotal > 30000 ? 'car' : fiveYearTotal > 10000 ? 'used car' : 'vacation to Bali') + ' you don\'t have.',
+      'Fun fact: If you invested that $' + monthlyTotal.toFixed(0) + ' monthly in the S&P 500, you\'d have <strong>$' + sipValue.toFixed(0) + '</strong> in 10 years. But hey, ad-free content is priceless.',
+      'You could have saved enough for a <strong>' + (monthlyTotal > 50 ? 'nice' : 'very small') + ' emergency fund</strong> with just 3 months of cancelled subscriptions.'
+    ];
+
+    var bonusMsg = sarcasticMessages[Math.floor(Math.random() * sarcasticMessages.length)];
+
+    document.getElementById('result-text').innerHTML = msg;
+    document.getElementById('investment-results').innerHTML =
+      '<p>' + bonusMsg + '</p>' +
+      '<p style="margin-top:12px;font-size:13px;color:var(--muted);">Monthly: $' + monthlyTotal.toFixed(2) + ' | Yearly: $' + yearlyTotal.toFixed(2) + ' | 5 Years: $' + fiveYearTotal.toFixed(2) + '</p>';
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

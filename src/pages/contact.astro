@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact Us — RealityCheck Tools" description="Get in touch with the RealityCheck.tools team.">
+  <div class="section-padding" style="max-width:600px;margin:0 auto;text-align:center;padding-top:48px;">
+    <h1 style="font-size:48px;">Contact Us</h1>
+    <p style="color:var(--muted);margin-bottom:32px;">Have a tool idea? Want to report a bug? Or just need to vent?</p>
+    <div style="background:var(--surface-card);border-radius:var(--radius-lg);padding:var(--space-xl);text-align:left;">
+      <div class="tool-input-group"><label for="name">Name</label><input type="text" id="name" placeholder="Your name" /></div>
+      <div class="tool-input-group"><label for="email">Email</label><input type="text" id="email" placeholder="your@email.com" /></div>
+      <div class="tool-input-group"><label for="message">Message</label><textarea id="message" rows="5"></textarea></div>
+      <button class="btn-primary" id="contact-btn" style="width:100%;justify-content:center;">Send Message</button>
+      <p id="contact-feedback" style="margin-top:12px;color:var(--success);font-size:14px;display:none;">Thanks for reaching out! We'll get back to you (eventually).</p>
+    </div>
+  </div>
+</Layout>
+<script>
+  document.getElementById('contact-btn')?.addEventListener('click', function() {
+    document.getElementById('contact-feedback').style.display = 'block';
+  });
+</script>

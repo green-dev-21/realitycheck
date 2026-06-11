@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+const seoKeywords = "future regret calculator, goal tracker, procrastination regret, life simulator";
+---
+<Layout title="Future Regret Simulator — RealityCheck Tools" description="Calculate how disappointed Future You will be about the goals you didn't start." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>Future Regret Simulator</h1>
+    <p class="subtitle">Calculate how disappointed Future You will be about the goals you didn't start.</p>
+  </div>
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+    <div class="tool-input-group">
+      <label for="goal">Your goal</label>
+      <select id="goal">
+        <option value="fitness">Get fit</option>
+        <option value="coding">Learn coding</option>
+        <option value="savings">Save money</option>
+        <option value="business">Start a business</option>
+        <option value="writing">Write a book</option>
+        <option value="language">Learn a language</option>
+      </select>
+    </div>
+    <div class="tool-input-group">
+      <label for="startMonthsAgo">How many months ago did you plan to start?</label>
+      <input type="number" id="startMonthsAgo" min="1" max="120" value="6" />
+    </div>
+    <div class="tool-input-group">
+      <label for="dailyEffort">Daily effort required (minutes)</label>
+      <input type="number" id="dailyEffort" min="5" max="480" step="5" value="30" />
+    </div>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Regret My Choices</button>
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="progress-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+<script>
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var goal = document.getElementById('goal').value;
+    var months = parseInt(document.getElementById('startMonthsAgo').value) || 6;
+    var effort = parseInt(document.getElementById('dailyEffort').value) || 30;
+    var totalHours = months * 30 * (effort / 60);
+    var labels = { fitness: 'healthier', coding: 'building apps', savings: 'wealthier', business: 'an entrepreneur', writing: 'an author', language: 'multilingual' };
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var msgs = {
+      friendly: 'If you had started ' + months + ' months ago, you\'d be ' + totalHours.toFixed(0) + ' hours into ' + (labels[goal] || 'your goal') + '. It\'s not too late! 🌟',
+      brutal: 'If you had started <strong>' + months + ' months ago</strong>, Future You would currently be <strong>less disappointed</strong>. You\'ve wasted <strong>' + totalHours.toFixed(0) + ' hours</strong> of potential ' + (labels[goal] || 'progress') + '.',
+      'passive-aggressive': months + ' months. ' + totalHours.toFixed(0) + ' hours. ' + (labels[goal] || 'nothing') + '. But sure, you\'ll start next month. 😊',
+      'corporate-hr': 'Goal initiation delay: ' + months + ' months. Opportunity cost: ' + totalHours.toFixed(0) + ' hours of unrealized ' + (labels[goal] || 'development') + ' potential. Let\'s schedule a start-date alignment.',
+      'indian-parent': 'Beta, it\'s been ' + months + ' months and you haven\'t started ' + goal + '? That\'s ' + totalHours.toFixed(0) + ' hours lost. Sharma ji\'s son started yesterday and is already ' + (labels[goal] || 'ahead') + '.',
+      whatsapp: 'Bhai, ' + months + ' months ho gaye bas "start karega" karte karte? ' + totalHours.toFixed(0) + ' hours waste. Future tu rohega aur tu hi hassega. Aaj hi start kar warna main hi tera reminder ban ke aaunga. 🔔👀'
+    };
+    document.getElementById('result-text').innerHTML = msgs[t] || msgs.brutal;
+    document.getElementById('progress-results').innerHTML =
+      '<p style="font-size:22px;font-weight:500;font-family:var(--display);color:var(--primary);">' + totalHours.toFixed(0) + ' hours of lost potential</p>' +
+      '<p style="font-size:13px;color:var(--muted);margin-top:8px;">' + months + ' months procrastinated | ' + effort + ' min/day planned effort<br>If you start today, in ' + months + ' more months you\'ll have ' + totalHours.toFixed(0) + ' hours of progress.</p>';
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

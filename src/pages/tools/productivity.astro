@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+const seoKeywords = "productivity theater, workflow optimization, productivity apps, procrastination calculator";
+---
+<Layout title="Productivity Theater Analyzer — RealityCheck Tools" description="Measure how much time you spend optimizing your workflow instead of actually working." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>Productivity Theater Analyzer</h1>
+    <p class="subtitle">Measure how much time you spend optimizing your workflow instead of actually working.</p>
+  </div>
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+    <div class="tool-input-group">
+      <label for="appsUsed">Number of productivity apps used</label>
+      <input type="number" id="appsUsed" min="0" max="50" value="6" />
+    </div>
+    <div class="tool-input-group">
+      <label for="hoursOrganizing">Hours per week organizing tasks</label>
+      <input type="number" id="hoursOrganizing" min="0" max="40" step="0.5" value="5" />
+    </div>
+    <div class="tool-input-group">
+      <label for="actualWork">Hours per week of actual work completed</label>
+      <input type="number" id="actualWork" min="0" max="40" step="0.5" value="3" />
+    </div>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Analyze My Theater</button>
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="efficiency-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+<script>
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var apps = parseInt(document.getElementById('appsUsed').value) || 6;
+    var hOrg = parseFloat(document.getElementById('hoursOrganizing').value) || 5;
+    var hWork = parseFloat(document.getElementById('actualWork').value) || 3;
+    var eff = hWork > 0 ? (hWork / (hOrg + hWork)) * 100 : 0;
+    var waste = (hOrg / (hOrg + hWork)) * 100;
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var msgs = {
+      friendly: 'You\'re using ' + apps + ' apps to organize ' + hOrg + 'h/week of tasks. You complete ' + hWork + 'h of work. That\'s ' + eff.toFixed(0) + '% efficiency. Room for improvement! 🌟',
+      brutal: 'You spent <strong>' + hOrg + ' hours</strong> optimizing your workflow to avoid <strong>' + hWork + ' hours</strong> of actual work. Impressive. That\'s <strong>' + waste.toFixed(0) + '%</strong> theater, ' + eff.toFixed(0) + '% substance.',
+      'passive-aggressive': apps + ' apps. ' + hOrg + 'h organizing. ' + hWork + 'h working. That\'s a ' + waste.toFixed(0) + '% optimization rate. You\'re basically a professional task organizer. 😊',
+      'corporate-hr': 'Tool stack analysis: ' + apps + ' applications with ' + hOrg + 'h/week workflow management yielding ' + hWork + 'h output. Efficiency quotient: ' + eff.toFixed(0) + '%. Recommend reassessing tool synergy KPIs.',
+      'indian-parent': 'Beta, you have ' + apps + ' apps to plan your work? You spend ' + hOrg + 'h planning and only ' + hWork + 'h doing. Sharma ji\'s son just works. No apps needed.',
+      whatsapp: 'Bhai, ' + apps + ' apps hai tere paas plan karne ke liye lekin kaam sirf ' + hWork + 'h/week? 😂 ' + hOrg + 'h lagata hai organize karne mein. Ye productivity nahi, ye theater hai bhai. #ProcastinationWithExtraSteps'
+    };
+    document.getElementById('result-text').innerHTML = msgs[t] || msgs.brutal;
+    document.getElementById('efficiency-results').innerHTML =
+      '<p style="font-size:22px;font-weight:500;font-family:var(--display);color:' + (waste > 70 ? 'var(--error)' : 'var(--accent-amber)') + ';">' +
+      (waste > 70 ? '🎭 You are a productivity theater performer' : '📊 Room for optimization') + '</p>' +
+      '<p style="margin-top:8px;font-size:13px;color:var(--muted);">Apps: ' + apps + ' | Organizing: ' + hOrg + 'h/wk | Working: ' + hWork + 'h/wk<br>Theater score: ' + waste.toFixed(0) + '% | Actual productivity: ' + eff.toFixed(0) + '%</p>';
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

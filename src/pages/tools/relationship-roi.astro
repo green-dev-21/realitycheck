@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+const seoKeywords = "relationship calculator, emotional investment, relationship ROI, texting effort tracker";
+---
+<Layout title="Relationship ROI Calculator — RealityCheck Tools" description="Calculate the return on your emotional investment (results may sting)." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>Relationship ROI Calculator</h1>
+    <p class="subtitle">Calculate the return on your emotional investment (results may sting).</p>
+  </div>
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+    <div class="tool-input-group">
+      <label for="textsSent">Texts sent per day (by you)</label>
+      <input type="number" id="textsSent" min="0" max="500" value="30" />
+    </div>
+    <div class="tool-input-group">
+      <label for="textsReceived">Texts received per day</label>
+      <input type="number" id="textsReceived" min="0" max="500" value="8" />
+    </div>
+    <div class="tool-input-group">
+      <label for="emotionalEnergy">Emotional energy invested (1-10)</label>
+      <input type="number" id="emotionalEnergy" min="1" max="10" value="8" />
+    </div>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Calculate My ROI</button>
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="roi-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+<script>
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var sent = parseInt(document.getElementById('textsSent').value) || 30;
+    var recv = parseInt(document.getElementById('textsReceived').value) || 8;
+    var energy = parseInt(document.getElementById('emotionalEnergy').value) || 8;
+    var ratio = recv > 0 ? (sent / recv) : sent;
+    var respRate = (recv / sent) * 100;
+    var inv = Math.min(100, (energy * 10) + (sent * 0.3));
+    var ret = Math.min(100, (recv * 1.5) + (100 - respRate * 0.5));
+    var roi = ((ret - inv) / inv) * 100;
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var msgs = {
+      friendly: 'You send ' + sent + ' texts/day but receive ' + recv + '. That\'s a ' + respRate.toFixed(0) + '% response rate. Maybe communicate your needs? 🌟',
+      brutal: 'You invested <strong>startup-level effort</strong> (' + sent + ' texts/day, ' + energy + '/10 emotional energy) into a connection yielding <strong>intern-level returns</strong> (' + recv + ' replies/day = ' + respRate.toFixed(0) + '% response rate). Your ROI: <strong>' + roi.toFixed(0) + '%</strong>.',
+      'passive-aggressive': 'You send ' + sent + 'x/day and get ' + recv + ' back. ' + respRate.toFixed(0) + '% response rate. I\'m sure they\'re just... busy. 😊',
+      'corporate-hr': 'Relationship investment analysis: Communication volume imbalance detected. Your output: ' + sent + '/day, return: ' + recv + '/day. ROI: ' + roi.toFixed(0) + '%. Recommend expectation alignment.',
+      'indian-parent': 'Beta, you text ' + sent + ' times a day and get ' + recv + ' replies? ' + respRate.toFixed(0) + '% response rate. Sharma ji\'s son is getting married next month. Much more efficient.',
+      whatsapp: 'Bhai, tu ' + sent + ' texts bhejta hai roz aur milte sirf ' + recv + '? 📱 ' + respRate.toFixed(0) + '% response rate! Emotional investment ' + energy + '/10 hai lekin ROI ' + roi.toFixed(0) + '% hai. Bas itna bolunga: "Read but not replied" waali feeling familiar hai na? 😭💀'
+    };
+    document.getElementById('result-text').innerHTML = msgs[t] || msgs.brutal;
+    document.getElementById('roi-results').innerHTML =
+      '<p style="font-size:22px;font-weight:500;font-family:var(--display);color:' + (roi < 0 ? 'var(--error)' : 'var(--success)') + ';">ROI: ' + roi.toFixed(0) + '%' + (roi < 0 ? ' 🔴' : ' 🟢') + '</p>' +
+      '<p style="margin-top:8px;font-size:13px;color:var(--muted);">Sent: ' + sent + '/day | Received: ' + recv + '/day | Response rate: ' + respRate.toFixed(0) + '%<br>Emotional investment: ' + energy + '/10 | Ratio: ' + ratio.toFixed(1) + ':1</p>';
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

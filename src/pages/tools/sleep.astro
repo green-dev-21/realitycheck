@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+
+const seoKeywords = "sleep debt calculator, sleep deprivation test, circadian rhythm tracker, sleep deficit calculator";
+---
+
+<Layout title="Sleep Debt Calculator — RealityCheck Tools" description="Find out how many hours of sleep you owe your body (interest compounding daily). Brutal sleep deprivation reality check." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>Sleep Debt Calculator</h1>
+    <p class="subtitle">Find out how many hours of sleep you owe your body (interest compounding daily).</p>
+  </div>
+
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+
+    <div class="tool-input-group">
+      <label for="avgSleepHours">Average sleep per night</label>
+      <input type="number" id="avgSleepHours" min="0" max="12" step="0.5" value="6" />
+    </div>
+
+    <div class="tool-input-group">
+      <label for="idealSleepHours">Ideal sleep per night</label>
+      <input type="number" id="idealSleepHours" min="7" max="9" step="0.5" value="8" />
+    </div>
+
+    <div class="tool-input-group">
+      <label for="daysTracked">Days tracked</label>
+      <input type="number" id="daysTracked" min="1" max="365" step="1" value="30" />
+    </div>
+
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Calculate My Sleep Debt</button>
+
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="debt-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var avgSleep = parseFloat(document.getElementById('avgSleepHours').value) || 6;
+    var idealSleep = parseFloat(document.getElementById('idealSleepHours').value) || 8;
+    var daysTracked = parseInt(document.getElementById('daysTracked').value) || 30;
+
+    var dailyDebt = Math.max(0, idealSleep - avgSleep);
+    var totalDebtHours = dailyDebt * daysTracked;
+    var totalDebtDays = totalDebtHours / 24;
+    var estimatedAge = 30 + Math.max(0, Math.round(idealSleep - avgSleep) * 3);
+
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+
+    var messages = {
+      'friendly': 'You currently owe your body <strong>' + totalDebtHours.toFixed(1) + ' hours</strong> of sleep. That\'s <strong>' + totalDebtDays.toFixed(1) + ' full days</strong>. Try to catch up! 🌟',
+      'brutal': 'You currently owe your body <strong>' + totalDebtHours.toFixed(1) + ' hours</strong> of sleep. That\'s <strong>' + totalDebtDays.toFixed(1) + ' full days</strong> of unconsciousness. Interest compounds through: mood swings (active), decision making (impaired), and questionable life choices (inevitable).',
+      'passive-aggressive': 'Only ' + totalDebtHours.toFixed(1) + ' hours of sleep debt? That\'s ' + totalDebtDays.toFixed(1) + ' days. I\'m sure your dark circles are a fashion choice. 😊',
+      'corporate-hr': 'Sleep deficit analysis: ' + totalDebtHours.toFixed(1) + ' hours accrued over ' + daysTracked + ' days. That\'s ' + totalDebtDays.toFixed(1) + ' full days of productivity gap. Let\'s schedule a rest optimization initiative.',
+      'indian-parent': 'Beta, you owe your body ' + totalDebtHours.toFixed(1) + ' hours of sleep. That\'s ' + totalDebtDays.toFixed(1) + ' days. No wonder you look tired. Sharma ji\'s son sleeps 8 hours AND still runs a startup.',
+      'whatsapp': 'Yaar, ' + totalDebtHours.toFixed(1) + ' hours neend ki debt hai tere paas! 😴 ' + totalDebtDays.toFixed(1) + ' din puri neend nahi li. Interest badh raha hai — mood swings up, decision making down. Jaake so ja pehle. Bas instagram scroll mat kar. 📱❌'
+    };
+
+    var msg = messages[tone] || messages.brutal;
+
+    var symptomColor = dailyDebt >= 2 ? 'var(--error)' : dailyDebt >= 1 ? 'var(--warning)' : 'var(--success)';
+    var symptomText = dailyDebt >= 2 ? 'severe sleep deprivation - consult a doctor' :
+                      dailyDebt >= 1 ? 'moderate sleep debt - take action' :
+                      'minimal sleep debt - you\'re doing well';
+
+    document.getElementById('result-text').innerHTML = msg;
+    document.getElementById('debt-results').innerHTML =
+      '<p style="margin-bottom:8px;">At this rate, you\'ll need to start hibernating by age <strong>' + estimatedAge + '</strong>.</p>' +
+      '<p style="color:' + symptomColor + ';font-weight:600;margin-top:8px;">' +
+      (dailyDebt > 0 ? '⚠️ ' : '✅ ') + 'Diagnosis: ' + symptomText + '</p>' +
+      '<p style="margin-top:12px;font-size:13px;color:var(--muted);">Daily deficit: ' + dailyDebt.toFixed(1) + 'h | Total: ' + totalDebtHours.toFixed(1) + 'h (' + totalDebtDays.toFixed(1) + ' days)</p>';
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

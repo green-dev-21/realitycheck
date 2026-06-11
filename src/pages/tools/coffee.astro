@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+
+const seoKeywords = "coffee cost calculator, latte factor calculator, downpayment savings, coffee spending tracker";
+---
+
+<Layout title="Coffee-to-Downpayment Calculator — RealityCheck Tools" description="See how your daily coffee habit stacks up against a real-life home downpayment in Indian cities. Brutal financial reality check." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>Coffee-to-Downpayment Calculator</h1>
+    <p class="subtitle">See how your daily coffee habit stacks up against a real-life home downpayment.</p>
+  </div>
+
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+
+    <div class="tool-input-group">
+      <label for="coffeePrice">Price per cup ($)</label>
+      <input type="number" id="coffeePrice" min="1" max="10" step="0.5" value="4" />
+    </div>
+
+    <div class="tool-input-group">
+      <label for="cupsPerWeek">Cups per week</label>
+      <input type="number" id="cupsPerWeek" min="1" max="28" step="1" value="5" />
+    </div>
+
+    <div class="tool-input-group">
+      <label for="city">City (for downpayment comparison)</label>
+      <select id="city">
+        <option value="Bengaluru">Bengaluru</option>
+        <option value="Mumbai" selected>Mumbai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Pune">Pune</option>
+      </select>
+    </div>
+
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Calculate My Coffee Tax</button>
+
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="suggestion-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  var CITY_DOWNPAYMENTS = { "Bengaluru": 45000, "Mumbai": 75000, "Delhi": 35000, "Hyderabad": 30000, "Chennai": 28000, "Pune": 32000 };
+  var SUGGESTIONS = [
+    'May I suggest: live in a coffee shop',
+    'May I suggest: marry a barista',
+    'May I suggest: switch to instant coffee like a normal person',
+    'May I suggest: start a coffee fund instead of a coffee habit',
+    'May I suggest: consider that rent + coffee = no house ever'
+  ];
+
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var coffeePrice = parseFloat(document.getElementById('coffeePrice').value) || 4;
+    var cupsPerWeek = parseInt(document.getElementById('cupsPerWeek').value) || 5;
+    var city = document.getElementById('city').value;
+
+    var weeklySpend = coffeePrice * cupsPerWeek;
+    var yearlySpend = weeklySpend * 52;
+    var fiveYearSpend = yearlySpend * 5;
+    var downpayment = CITY_DOWNPAYMENTS[city] || 50000;
+    var percentage = Math.min(100, (fiveYearSpend / downpayment) * 100);
+
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+
+    var baseMessages = {
+      'friendly': 'Your coffee habit costs <strong>$' + yearlySpend.toFixed(0) + '/year</strong>. In 5 years, you\'d have <strong>$' + fiveYearSpend.toFixed(0) + '</strong>. That\'s <strong>' + percentage.toFixed(1) + '%</strong> of a downpayment in ' + city + '. Not bad! 🌟',
+      'brutal': 'Your coffee habit costs <strong>$' + yearlySpend.toFixed(0) + '/year</strong>. In 5 years, you\'d have <strong>$' + fiveYearSpend.toFixed(0) + '</strong>. Unfortunately, that\'s still only <strong>' + percentage.toFixed(1) + '%</strong> of a downpayment in ' + city + '.',
+      'passive-aggressive': 'Oh wow, $' + yearlySpend.toFixed(0) + '/year on coffee. In 5 years that\'s $' + fiveYearSpend.toFixed(0) + '. Just <strong>' + percentage.toFixed(1) + '%</strong> of a ' + city + ' downpayment. But you do you! 😊',
+      'corporate-hr': 'Your beverage expenditure totals $' + yearlySpend.toFixed(0) + ' annually. Over 5 years, this represents ' + percentage.toFixed(1) + '% of the ' + city + ' property acquisition threshold. Let\'s discuss liquid asset reallocation.',
+      'indian-parent': 'Beta, you spend $' + yearlySpend.toFixed(0) + ' per year on coffee? That\'s $' + fiveYearSpend.toFixed(0) + ' in 5 years. ' + percentage.toFixed(1) + '% of a house in ' + city + '. Sharma ji\'s son doesn\'t drink coffee. He owns the coffee shop.',
+      'whatsapp': 'Bhai/sis, coffee pe $' + yearlySpend.toFixed(0) + '/year?! 🤯 5 saal mein $' + fiveYearSpend.toFixed(0) + ' ho jayega. ' + percentage.toFixed(1) + '% of a ' + city + ' downpayment. Aur kehta hai "mujhe ghar lena hai." Chai piyo, ghar lo. 🏠☕❌'
+    };
+
+    var msg = baseMessages[tone] || baseMessages.brutal;
+    var suggestion = SUGGESTIONS[Math.floor(Math.random() * SUGGESTIONS.length)];
+
+    document.getElementById('result-text').innerHTML = msg;
+    document.getElementById('suggestion-results').innerHTML =
+      '<p style="color:var(--primary);font-style:italic;">' + suggestion + '</p>' +
+      '<p style="margin-top:12px;font-size:13px;color:var(--muted);">Weekly: $' + weeklySpend.toFixed(2) + ' | Yearly: $' + yearlySpend.toFixed(2) + ' | 5 Years: $' + fiveYearSpend.toFixed(2) + '</p>';
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

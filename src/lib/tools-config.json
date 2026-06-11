@@ -1,0 +1,98 @@
+[
+  {
+    "id": "doomscroll",
+    "title": "Doomscroll Tax Calculator",
+    "description": "Calculate how many years of your life you've sacrificed to the infinite scroll.",
+    "painLevel": 8,
+    "category": "time-waste",
+    "seoKeywords": "time waste calculator, social media addiction test, screen time tracker, doom scrolling, social media time calculator"
+  },
+  {
+    "id": "subscription",
+    "title": "Subscription Vampire Tracker",
+    "description": "Discover how much your 'small' monthly subscriptions drain from your wallet.",
+    "painLevel": 7,
+    "category": "finance",
+    "seoKeywords": "subscription cost calculator, monthly expense tracker, vampire subscription, recurring payments calculator"
+  },
+  {
+    "id": "coffee",
+    "title": "Coffee-to-Downpayment Calculator",
+    "description": "See how your daily coffee habit stacks up against a real-life downpayment.",
+    "painLevel": 6,
+    "category": "finance",
+    "seoKeywords": "coffee cost calculator, latte factor calculator, downpayment savings, coffee spending tracker"
+  },
+  {
+    "id": "gym",
+    "title": "Gym Membership Reality Checker",
+    "description": "Calculate exactly how much each gym visit actually costs you.",
+    "painLevel": 9,
+    "category": "health",
+    "seoKeywords": "gym cost per visit, fitness ROI calculator, unused membership tracker, gym expense calculator"
+  },
+  {
+    "id": "sleep",
+    "title": "Sleep Debt Calculator",
+    "description": "Find out how many hours of sleep you owe your body (interest compounding daily).",
+    "painLevel": 5,
+    "category": "health",
+    "seoKeywords": "sleep debt calculator, sleep deprivation test, circadian rhythm tracker, sleep deficit calculator"
+  },
+  {
+    "id": "productivity",
+    "title": "Productivity Theater Analyzer",
+    "description": "Measure how much time you spend optimizing your workflow instead of working.",
+    "painLevel": 6,
+    "category": "productivity",
+    "seoKeywords": "productivity theater, workflow optimization, productivity apps, procrastination calculator"
+  },
+  {
+    "id": "future-regret",
+    "title": "Future Regret Simulator",
+    "description": "Calculate how disappointed Future You will be about the goals you didn't start.",
+    "painLevel": 10,
+    "category": "life",
+    "seoKeywords": "future regret calculator, goal tracker, procrastination regret, life simulator"
+  },
+  {
+    "id": "career-drift",
+    "title": "Career Drift Calculator",
+    "description": "See if you're building a career or just getting really good at opening Jira tickets.",
+    "painLevel": 8,
+    "category": "career",
+    "seoKeywords": "career stagnation calculator, skill growth tracker, career drift, job growth calculator"
+  },
+  {
+    "id": "ai-probability",
+    "title": "AI Replacement Probability Generator",
+    "description": "Find out how likely your job is to be automated (spoiler: it's higher than you think).",
+    "painLevel": 9,
+    "category": "career",
+    "seoKeywords": "AI job replacement calculator, automation risk, job security test, future of work"
+  },
+  {
+    "id": "group-project",
+    "title": "Group Project Load Balancer",
+    "description": "Quantify exactly how much you carried your team (and how much they didn't).",
+    "painLevel": 7,
+    "category": "productivity",
+    "seoKeywords": "group project calculator, teamwork imbalance, project load balancer, contribution tracker"
+  },
+  {
+    "id": "relationship-roi",
+    "title": "Relationship ROI Calculator",
+    "description": "Calculate the return on your emotional investment (results may sting).",
+    "painLevel": 8,
+    "category": "life",
+    "seoKeywords": "relationship calculator, emotional investment, relationship ROI, texting effort tracker"
+  },
+  {
+    "id": "existential-alarm",
+    "title": "Existential Alarm Clock",
+    "description": "See exactly how many mornings you have left. No pressure.",
+    "painLevel": 10,
+    "category": "life",
+    "seoKeywords": "life expectancy calculator, mornings left, existential alarm, mortality reminder"
+  }
+]

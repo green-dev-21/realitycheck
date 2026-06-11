@@ -1,0 +1,160 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToneSelector from '../../components/ToneSelector.astro';
+
+const seoKeywords = "time waste calculator, social media addiction test, screen time tracker, doom scrolling, social media time calculator";
+---
+
+<Layout title="Doomscroll Tax Calculator — RealityCheck Tools" description="Calculate exactly how many years of your life you've lost to the infinite scroll. Brutal time waste calculator for Instagram, TikTok, X, and YouTube." seoKeywords={seoKeywords}>
+  <div class="tool-hero">
+    <h1>Doomscroll Tax Calculator</h1>
+    <p class="subtitle">Calculate how many years of your life you've sacrificed to the infinite scroll.</p>
+  </div>
+
+  <div class="tool-form">
+    <ToneSelector currentTone="brutal" />
+
+    <div class="tool-input-group">
+      <label for="hoursPerDay">Hours per day scrolling</label>
+      <input type="number" id="hoursPerDay" min="0" max="24" step="0.5" value="3" />
+    </div>
+
+    <div class="tool-input-group">
+      <label for="platform">Primary platform</label>
+      <select id="platform">
+        <option value="Instagram">Instagram</option>
+        <option value="TikTok">TikTok</option>
+        <option value="X/Twitter">X / Twitter</option>
+        <option value="YouTube">YouTube</option>
+        <option value="All" selected>All (average)</option>
+      </select>
+    </div>
+
+    <div class="tool-input-group">
+      <label for="age">Your age</label>
+      <input type="number" id="age" min="13" max="100" value="25" />
+    </div>
+
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Calculate My Loss</button>
+
+    <div id="results" style="display:none;">
+      <div class="result-card" id="result-card">
+        <div class="result-text" id="result-text"></div>
+        <div id="bonus-results" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft);"></div>
+      </div>
+      <div id="share-card-container"></div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  document.getElementById('calculate-btn').addEventListener('click', function() {
+    var hoursPerDay = parseFloat(document.getElementById('hoursPerDay').value) || 0;
+    var platform = document.getElementById('platform').value;
+    var age = parseInt(document.getElementById('age').value) || 25;
+
+    var dailyMinutes = hoursPerDay * 60;
+    var yearlyHours = hoursPerDay * 365;
+    var lifeExpectancy = 80;
+    var yearsAtCurrentRate = ((lifeExpectancy - age) * hoursPerDay) / 24;
+
+    var messages = [
+      'At this rate, you will spend <strong>' + yearsAtCurrentRate.toFixed(1) + ' years</strong> of your life watching people you don\'t know do things you won\'t remember.',
+      'Congratulations! You\'ve scrolled the equivalent of traveling from Earth to Mars <strong>' + (yearlyHours / 4000).toFixed(0) + ' times</strong>.',
+      'Your thumbs have traveled <strong>' + (dailyMinutes * 365 * 0.01).toFixed(0) + ' kilometers</strong>. Sadly, that\'s not a workout.',
+      'You could have learned <strong>' + (yearlyHours / 200).toFixed(0) + ' languages</strong> fluently in that time.'
+    ];
+
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var rawMessage = messages[Math.floor(Math.random() * messages.length)];
+    var message = wrapInTone(rawMessage, tone);
+
+    var moviesWatched = Math.round(yearlyHours / 2);
+    var booksUnread = Math.round(yearlyHours / 8);
+    var daysNotTouchedGrass = Math.round(yearlyHours / 24);
+
+    document.getElementById('result-text').innerHTML = message;
+    document.getElementById('bonus-results').innerHTML =
+      '<p style="color:var(--muted);margin-bottom:8px;font-size:13px;font-weight:500;">Bonus reality checks:</p>' +
+      '<p>🎬 You could have watched <strong>' + moviesWatched.toLocaleString() + '</strong> movies</p>' +
+      '<p>📚 You could have read <strong>' + booksUnread.toLocaleString() + '</strong> audiobooks</p>' +
+      '<p>🌿 You haven\'t touched grass in <strong>' + daysNotTouchedGrass.toLocaleString() + '</strong> days</p>' +
+      '<p style="margin-top:12px;font-size:13px;color:var(--muted);">Platform: ' + platform + '</p>';
+
+    var container = document.getElementById('share-card-container');
+    container.innerHTML = '';
+    var text = rawMessage.replace(/<[^>]*>/g, '');
+    var twt = 'https://twitter.com/intent/tweet?text=';
+    var shareUrl = twt + encodeURIComponent(text + '\n\nCalculate yours at RealityCheck.tools');
+
+    container.innerHTML =
+      '<div class="share-card-wrapper">' +
+      '<div class="share-card" id="dynamic-share-card">' +
+      '<div class="share-card-content">' +
+      '<div class="share-card-toolname">Doomscroll Tax Calculator</div>' +
+      '<div class="share-card-result">' + text + '</div>' +
+      '<div class="share-card-watermark">RealityCheck.tools</div>' +
+      '</div></div>' +
+      '<div class="share-section">' +
+      '<button class="share-btn" id="dyn-copy-btn">📋 Copy Image</button>' +
+      '<a class="share-btn" id="dyn-twitter-btn" href="' + shareUrl + '" target="_blank" rel="noopener">𝕏 Share on X</a>' +
+      '</div></div>';
+
+    document.getElementById('dyn-copy-btn')?.addEventListener('click', async function() {
+      var card = document.getElementById('dynamic-share-card');
+      if (!card) return;
+      try {
+        var c = document.createElement('canvas');
+        var ctx = c.getContext('2d');
+        var rect = card.getBoundingClientRect();
+        c.width = rect.width * 2;
+        c.height = rect.height * 2;
+        ctx.scale(2, 2);
+        var bg = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+        bg.addColorStop(0, '#181715'); bg.addColorStop(0.3, '#1a1412');
+        bg.addColorStop(0.6, '#181715'); bg.addColorStop(1, '#1f1e1b');
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, rect.width, rect.height);
+        ctx.fillStyle = '#cc785c'; ctx.font = '500 14px Inter, system-ui';
+        ctx.fillText('DOOMSCROLL TAX CALCULATOR', 28, 45);
+        ctx.fillStyle = '#faf9f5'; ctx.font = '400 22px "EB Garamond", serif';
+        var lines = wrapCanvasText(ctx, text, rect.width - 56);
+        for (var i = 0; i < lines.length; i++) { ctx.fillText(lines[i], 28, 85 + i * 28); }
+        ctx.fillStyle = 'rgba(160,157,150,0.5)'; ctx.font = '500 12px Inter, system-ui';
+        ctx.fillText('RealityCheck.tools', 28, rect.height - 20);
+        c.toBlob(function(blob) {
+          if (blob) {
+            navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+            document.getElementById('dyn-copy-btn').textContent = 'Copied!';
+            setTimeout(function() { document.getElementById('dyn-copy-btn').textContent = '📋 Copy Image'; }, 2000);
+          }
+        });
+      } catch(e) {}
+    });
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  function wrapInTone(msg, tone) {
+    var wrappers = {
+      'friendly': function(m) { return m + ' 🌟'; },
+      'brutal': function(m) { return m; },
+      'passive-aggressive': function(m) { return m + ' ...No, it\'s fine. Do you. 😊'; },
+      'corporate-hr': function(m) { return 'Per our time allocation audit: ' + m.toLowerCase() + ' Let\'s optimize your scrolling synergy.'; },
+      'indian-parent': function(m) { return 'Beta, ' + m.toLowerCase() + ' Sharma ji\'s son doesn\'t even own a phone.'; },
+      'whatsapp': function(m) { return 'Yaar, ' + m.toLowerCase() + ' 👉🤡. Life barbaad karne ka koi shauk hai toh alag baat hai.'; }
+    };
+    return (wrappers[tone] || wrappers.brutal)(msg);
+  }
+
+  function wrapCanvasText(ctx, text, maxWidth) {
+    var words = text.split(' '); var lines = []; var line = '';
+    for (var w = 0; w < words.length; w++) {
+      var test = line + words[w] + ' ';
+      if (ctx.measureText(test).width > maxWidth && line) { lines.push(line.trim()); line = words[w] + ' '; }
+      else { line = test; }
+    }
+    if (line.trim()) lines.push(line.trim());
+    return lines.length ? lines : [text];
+  }
+</script>
