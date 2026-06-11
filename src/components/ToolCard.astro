@@ -14,7 +14,7 @@ const skullIcons = Array(painLevel).fill(icon('skull', 14)).join(' ');
 ---
 
 <a href={`/tools/${slug}`} class="tool-card">
-  <div class="pain">{skullIcons}</div>
+  <div class="pain" set:html={skullIcons}></div>
   <h3>{title}</h3>
   <p>{description}</p>
   <div class="card-footer">

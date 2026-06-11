@@ -56,7 +56,7 @@ const tools = [
       <div class="tool-grid">
         {tools.map(tool => (
           <a href={`/tools/${tool.slug}`} class="tool-card">
-            <div class="pain">{Array(tool.painLevel).fill(icon('skull', 14)).join(' ')}</div>
+            <div class="pain" set:html={Array(tool.painLevel).fill(icon('skull', 14)).join(' ')}></div>
             <h3>{tool.title}</h3>
             <p>{tool.description}</p>
             <div class="card-footer">
@@ -77,22 +77,22 @@ const tools = [
       </div>
       <div class="features-grid">
         <div class="feature-card-dark">
-          <div class="feature-emoji">{maskIcon}</div>
+          <div class="feature-emoji" set:html={maskIcon}></div>
           <h5>5 Tarike Ke Bakwas</h5>
           <p>Friendly se Indian Parent tak — jaisa roast chahiye, waisa suno.</p>
         </div>
         <div class="feature-card-dark">
-          <div class="feature-emoji">{barChartIcon}</div>
+          <div class="feature-emoji" set:html={barChartIcon}></div>
           <h5>Sachchi Ganit</h5>
           <p>Har calculator asli numbers use karta hai. Results dard de sakte hain.</p>
         </div>
         <div class="feature-card-dark">
-          <div class="feature-emoji">{smartphoneIcon}</div>
+          <div class="feature-emoji" set:html={smartphoneIcon}></div>
           <h5>Dard Baant Lo</h5>
           <p>Share cards banao aur apne doston ko X/Twitter pe roast karo.</p>
         </div>
         <div class="feature-card-dark">
-          <div class="feature-emoji">{lockIcon}</div>
+          <div class="feature-emoji" set:html={lockIcon}></div>
           <h5>Chup Chup</h5>
           <p>Sare calculations tere browser mein hote hain. Hum teri shame store nahi karte.</p>
         </div>

@@ -20,7 +20,7 @@ const tones = [
       class:list={{ active: currentTone === tone.id }}
       data-tone={tone.id}
     >
-      {icon(tone.iconName, 14)} {tone.label}
+      <span set:html={icon(tone.iconName, 14)}></span> {tone.label}
     </button>
   ))}
 </div>

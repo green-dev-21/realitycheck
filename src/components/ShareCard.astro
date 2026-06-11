@@ -20,8 +20,8 @@ const { resultText, toolName, value } = Astro.props;
     </div>
   </div>
   <div class="share-section">
-    <button class="share-btn" id="copy-share-btn">{icon('copy', 14)} Copy Image</button>
-    <a class="share-btn" id="twitter-share-btn" href="#" target="_blank" rel="noopener">{icon('twitter', 14)} Share on X</a>
+    <button class="share-btn" id="copy-share-btn"><span set:html={icon('copy', 14)}></span> Copy Image</button>
+    <a class="share-btn" id="twitter-share-btn" href="#" target="_blank" rel="noopener"><span set:html={icon('twitter', 14)}></span> Share on X</a>
   </div>
 </div>
 
