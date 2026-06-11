@@ -8,11 +8,11 @@ const seoKeywords = "gym cost per visit, fitness ROI calculator, unused membersh
 <Layout title="Gym Membership Reality Checker — RealityCheck Tools" description="Calculate exactly how much each gym visit actually costs you. The brutal truth about your unused membership." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>Gym Membership Reality Checker</h1>
-    <p class="subtitle">Calculate exactly how much each gym visit actually costs you.</p>
+    <p class="subtitle">Pata kar tere gym ke har visit ki asli keemat kya hai.</p>
   </div>
 
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
 
     <div class="tool-input-group">
       <label for="monthlyFee">Monthly gym fee ($)</label>
@@ -29,7 +29,7 @@ const seoKeywords = "gym cost per visit, fitness ROI calculator, unused membersh
       <input type="number" id="monthsAsMember" min="1" max="120" step="1" value="12" />
     </div>
 
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Check My Fitness ROI</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Fitness ROI Check Kar</button>
 
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
@@ -53,17 +53,17 @@ const seoKeywords = "gym cost per visit, fitness ROI calculator, unused membersh
     var costPerUnusedDay = monthlyFee / 30;
     var excuse = EXCUSES[Math.floor(Math.random() * EXCUSES.length)];
 
-    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
 
     var baseMsg = 'You paid <strong>$' + monthlyFee.toFixed(0) + '</strong> to visit the gym <strong>' + daysAttended + '</strong> times. That\'s <strong>$' + costPerVisit.toFixed(2) + '</strong> per ' + excuse + '.';
 
     var messages = {
-      'friendly': baseMsg + ' Total spent since joining: <strong>$' + totalSpent.toFixed(0) + '</strong>. Maybe aim for ' + (daysAttended + 2) + ' next month? 💪',
+      'friendly': baseMsg + ' Total spent since joining: <strong>$' + totalSpent.toFixed(0) + '</strong>. Maybe aim for ' + (daysAttended + 2) + ' next month?',
       'brutal': baseMsg + ' Total spent since joining: <strong>$' + totalSpent.toFixed(0) + '</strong>. Each unused gym day cost you <strong>$' + costPerUnusedDay.toFixed(2) + '</strong>. Oops.',
-      'passive-aggressive': baseMsg + ' Total spent: $' + totalSpent.toFixed(0) + '. Each day you didn\'t go cost you $' + costPerUnusedDay.toFixed(2) + '. But the membership looks great on your wallet! 😊',
+      'passive-aggressive': baseMsg + ' Total spent: $' + totalSpent.toFixed(0) + '. Each day you didn\'t go cost you $' + costPerUnusedDay.toFixed(2) + '. But the membership looks great on your wallet! ' + renderIcon('smile', 14),
       'corporate-hr': 'Fitness expenditure analysis: $' + monthlyFee.toFixed(0) + ' monthly with ' + daysAttended + ' utilization days equals $' + costPerVisit.toFixed(2) + ' per ' + excuse + '. Total sunk cost: $' + totalSpent.toFixed(0) + '. Unused capacity cost: $' + costPerUnusedDay.toFixed(2) + '/day.',
       'indian-parent': 'Beta, you paid $' + monthlyFee.toFixed(0) + ' to visit the gym ' + daysAttended + ' times. That\'s $' + costPerVisit.toFixed(2) + ' per ' + excuse + '. Total: $' + totalSpent.toFixed(0) + '. You could have bought dumbbells for home. Forever.',
-      'whatsapp': 'Arre yaar, $' + monthlyFee.toFixed(0) + ' dekar gym sirf ' + daysAttended + ' baar gaya? 😂 $' + costPerVisit.toFixed(2) + ' per visit. Ye kya hai? Fitness se zyada toh wallet ki exercise ho rahi hai. Total $' + totalSpent.toFixed(0) + ' ki dhulai. 💸'
+      'whatsapp': 'Arre yaar, $' + monthlyFee.toFixed(0) + ' dekar gym sirf ' + daysAttended + ' baar gaya? 😂 $' + costPerVisit.toFixed(2) + ' per visit. Ye kya hai? Fitness se zyada toh wallet ki exercise ho rahi hai. Total $' + totalSpent.toFixed(0) + ' ki dhulai. ' + renderIcon('dollar', 14)
     };
 
     var msg = messages[tone] || messages.brutal;

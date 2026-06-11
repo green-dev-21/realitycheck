@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { icon } from '../lib/icons';
+
+const maskIcon = icon('mask', 32);
+const barChartIcon = icon('barChart', 32);
+const smartphoneIcon = icon('smartphone', 32);
+const lockIcon = icon('lock', 32);
 
 const tools = [
   { title: "Doomscroll Tax Calculator", description: "Calculate how many years of your life you've sacrificed to the infinite scroll.", painLevel: 8, category: "time-waste", slug: "doomscroll" },
@@ -17,26 +23,26 @@ const tools = [
 ];
 ---
 
-<Layout title="RealityCheck Tools — Get Roasted. Get Better." description="Brutally honest calculators that show you the real cost of your habits. Doomscroll tax, subscription vampires, coffee downpayments, and more life reality checks.">
+<Layout title="RealityCheck Tools — Apna Sach Sun. Sudhar Ja." description="Bina matlab ke calculators jo dikhate hain teri aadat ki asli keemat. Doomscroll tax, subscription vampires, coffee downpayment, aur aur bhi reality checks.">
   <section class="hero-band">
-    <h1>Get Roasted. <span class="hero-accent">Get Better.</span></h1>
-    <p class="hero-subtitle">Brutally honest calculators that show you the real cost of your habits. No sugarcoating. No judgment. Just the truth.</p>
+    <h1>Apna Sach Sun. <span class="hero-accent">Sudhar Ja.</span></h1>
+    <p class="hero-subtitle">Bina matlab ke calculators jo dikhate hain teri aadat ki asli keemat. Na sugarcoating, na bakwas. Bas sach.</p>
     <div class="hero-actions">
-      <a href="#tools" class="btn-primary">Hit Me With The Truth</a>
-      <a href="/tools/doomscroll" class="btn-secondary">Start With Doomscroll</a>
+      <a href="#tools" class="btn-primary">Dikhade Apna Haal</a>
+      <a href="/tools/doomscroll" class="btn-secondary">Pehle Doomscroll Dekh</a>
     </div>
     <div class="hero-stats">
       <div class="stat">
         <span class="stat-value">12</span>
-        <span class="stat-label">Brutal Tools</span>
+        <span class="stat-label">Badtameez Tools</span>
       </div>
       <div class="stat">
         <span class="stat-value">5</span>
-        <span class="stat-label">Tone Modes</span>
+        <span class="stat-label">Bolne Ke Tarike</span>
       </div>
       <div class="stat">
         <span class="stat-value">100%</span>
-        <span class="stat-label">Unfiltered</span>
+        <span class="stat-label">Bina Filter</span>
       </div>
     </div>
   </section>
@@ -44,13 +50,13 @@ const tools = [
   <section id="tools" class="section-padding" style="padding-top:0;">
     <div class="container">
       <div class="section-header">
-        <h2>Choose Your Reality Check</h2>
-        <p class="section-subtitle">Pick a tool. Face the truth.</p>
+        <h2>Apna Sach Chuno</h2>
+        <p class="section-subtitle">Tool chuno, sach suno.</p>
       </div>
       <div class="tool-grid">
         {tools.map(tool => (
           <a href={`/tools/${tool.slug}`} class="tool-card">
-            <div class="pain">{'💀'.repeat(tool.painLevel)}</div>
+            <div class="pain">{Array(tool.painLevel).fill(icon('skull', 14)).join(' ')}</div>
             <h3>{tool.title}</h3>
             <p>{tool.description}</p>
             <div class="card-footer">
@@ -66,29 +72,29 @@ const tools = [
   <section class="band-dark">
     <div class="container">
       <div class="section-header">
-        <h2>How It Works</h2>
-        <p class="section-subtitle">Simple math. Zero fluff.</p>
+        <h2>Kaise Kaam Karta Hai</h2>
+        <p class="section-subtitle">Simple math. Zero bakwas.</p>
       </div>
       <div class="features-grid">
         <div class="feature-card-dark">
-          <div class="feature-emoji">🎭</div>
-          <h5>5 Tone Modes</h5>
-          <p>From Friendly to Indian Parent — get roasted the way you need it.</p>
+          <div class="feature-emoji">{maskIcon}</div>
+          <h5>5 Tarike Ke Bakwas</h5>
+          <p>Friendly se Indian Parent tak — jaisa roast chahiye, waisa suno.</p>
         </div>
         <div class="feature-card-dark">
-          <div class="feature-emoji">📊</div>
-          <h5>Real Math</h5>
-          <p>Every calculator uses actual numbers. The results may hurt.</p>
+          <div class="feature-emoji">{barChartIcon}</div>
+          <h5>Sachchi Ganit</h5>
+          <p>Har calculator asli numbers use karta hai. Results dard de sakte hain.</p>
         </div>
         <div class="feature-card-dark">
-          <div class="feature-emoji">📱</div>
-          <h5>Share the Pain</h5>
-          <p>Generate share cards and terrorize your friends on X/Twitter.</p>
+          <div class="feature-emoji">{smartphoneIcon}</div>
+          <h5>Dard Baant Lo</h5>
+          <p>Share cards banao aur apne doston ko X/Twitter pe roast karo.</p>
         </div>
         <div class="feature-card-dark">
-          <div class="feature-emoji">🔒</div>
-          <h5>Private</h5>
-          <p>All calculations happen in your browser. We don't store your shame.</p>
+          <div class="feature-emoji">{lockIcon}</div>
+          <h5>Chup Chup</h5>
+          <p>Sare calculations tere browser mein hote hain. Hum teri shame store nahi karte.</p>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
 ---
+import { icon } from '../lib/icons';
+
 export interface Props {
   title: string;
   description: string;
@@ -8,11 +10,11 @@ export interface Props {
 }
 
 const { title, description, painLevel, category, slug } = Astro.props;
-const skulls = '💀'.repeat(painLevel);
+const skullIcons = Array(painLevel).fill(icon('skull', 14)).join(' ');
 ---
 
 <a href={`/tools/${slug}`} class="tool-card">
-  <div class="pain">{skulls}</div>
+  <div class="pain">{skullIcons}</div>
   <h3>{title}</h3>
   <p>{description}</p>
   <div class="card-footer">

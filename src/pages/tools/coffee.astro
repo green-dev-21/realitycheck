@@ -8,11 +8,11 @@ const seoKeywords = "coffee cost calculator, latte factor calculator, downpaymen
 <Layout title="Coffee-to-Downpayment Calculator — RealityCheck Tools" description="See how your daily coffee habit stacks up against a real-life home downpayment in Indian cities. Brutal financial reality check." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>Coffee-to-Downpayment Calculator</h1>
-    <p class="subtitle">See how your daily coffee habit stacks up against a real-life home downpayment.</p>
+    <p class="subtitle">Dekh teri daily coffee ki aadat ek real ghar ke downpayment ke saamne kitni hai.</p>
   </div>
 
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
 
     <div class="tool-input-group">
       <label for="coffeePrice">Price per cup ($)</label>
@@ -36,7 +36,7 @@ const seoKeywords = "coffee cost calculator, latte factor calculator, downpaymen
       </select>
     </div>
 
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Calculate My Coffee Tax</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Coffee Tax Dekh</button>
 
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
@@ -68,15 +68,15 @@ const seoKeywords = "coffee cost calculator, latte factor calculator, downpaymen
     var downpayment = CITY_DOWNPAYMENTS[city] || 50000;
     var percentage = Math.min(100, (fiveYearSpend / downpayment) * 100);
 
-    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
 
     var baseMessages = {
-      'friendly': 'Your coffee habit costs <strong>$' + yearlySpend.toFixed(0) + '/year</strong>. In 5 years, you\'d have <strong>$' + fiveYearSpend.toFixed(0) + '</strong>. That\'s <strong>' + percentage.toFixed(1) + '%</strong> of a downpayment in ' + city + '. Not bad! 🌟',
+      'friendly': 'Your coffee habit costs <strong>$' + yearlySpend.toFixed(0) + '/year</strong>. In 5 years, you\'d have <strong>$' + fiveYearSpend.toFixed(0) + '</strong>. That\'s <strong>' + percentage.toFixed(1) + '%</strong> of a downpayment in ' + city + '. Not bad! ' + renderIcon('star', 14),
       'brutal': 'Your coffee habit costs <strong>$' + yearlySpend.toFixed(0) + '/year</strong>. In 5 years, you\'d have <strong>$' + fiveYearSpend.toFixed(0) + '</strong>. Unfortunately, that\'s still only <strong>' + percentage.toFixed(1) + '%</strong> of a downpayment in ' + city + '.',
-      'passive-aggressive': 'Oh wow, $' + yearlySpend.toFixed(0) + '/year on coffee. In 5 years that\'s $' + fiveYearSpend.toFixed(0) + '. Just <strong>' + percentage.toFixed(1) + '%</strong> of a ' + city + ' downpayment. But you do you! 😊',
+      'passive-aggressive': 'Oh wow, $' + yearlySpend.toFixed(0) + '/year on coffee. In 5 years that\'s $' + fiveYearSpend.toFixed(0) + '. Just <strong>' + percentage.toFixed(1) + '%</strong> of a ' + city + ' downpayment. But you do you! ' + renderIcon('smile', 14),
       'corporate-hr': 'Your beverage expenditure totals $' + yearlySpend.toFixed(0) + ' annually. Over 5 years, this represents ' + percentage.toFixed(1) + '% of the ' + city + ' property acquisition threshold. Let\'s discuss liquid asset reallocation.',
       'indian-parent': 'Beta, you spend $' + yearlySpend.toFixed(0) + ' per year on coffee? That\'s $' + fiveYearSpend.toFixed(0) + ' in 5 years. ' + percentage.toFixed(1) + '% of a house in ' + city + '. Sharma ji\'s son doesn\'t drink coffee. He owns the coffee shop.',
-      'whatsapp': 'Bhai/sis, coffee pe $' + yearlySpend.toFixed(0) + '/year?! 🤯 5 saal mein $' + fiveYearSpend.toFixed(0) + ' ho jayega. ' + percentage.toFixed(1) + '% of a ' + city + ' downpayment. Aur kehta hai "mujhe ghar lena hai." Chai piyo, ghar lo. 🏠☕❌'
+      'whatsapp': 'Bhai/sis, coffee pe $' + yearlySpend.toFixed(0) + '/year?! 🤯 5 saal mein $' + fiveYearSpend.toFixed(0) + ' ho jayega. ' + percentage.toFixed(1) + '% of a ' + city + ' downpayment. Aur kehta hai "mujhe ghar lena hai." Chai piyo, ghar lo. 🏠' + renderIcon('coffee', 14) + renderIcon('xIcon', 14)
     };
 
     var msg = baseMessages[tone] || baseMessages.brutal;

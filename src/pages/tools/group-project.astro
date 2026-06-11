@@ -6,10 +6,10 @@ const seoKeywords = "group project calculator, teamwork imbalance, project load 
 <Layout title="Group Project Load Balancer — RealityCheck Tools" description="Quantify exactly how much you carried your team (and how much they didn't)." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>Group Project Load Balancer</h1>
-    <p class="subtitle">Quantify exactly how much you carried your team (and how much they didn't).</p>
+    <p class="subtitle">Pata kar tu kitna apni team ko utha ke le gaya (aur unhone kitna nahi uthaya).</p>
   </div>
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
     <div class="tool-input-group">
       <label for="groupMembers">Number of group members (including you)</label>
       <input type="number" id="groupMembers" min="2" max="20" value="4" />
@@ -22,7 +22,7 @@ const seoKeywords = "group project calculator, teamwork imbalance, project load 
       <label for="theirHours">Average hours each other member worked</label>
       <input type="number" id="theirHours" min="0" max="200" step="0.5" value="7" />
     </div>
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Balance the Load</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Boja Dekh</button>
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
         <div class="result-text" id="result-text"></div>
@@ -41,14 +41,14 @@ const seoKeywords = "group project calculator, teamwork imbalance, project load 
     var projTotal = yourH + totalOther;
     var yourPct = (yourH / projTotal) * 100;
     var fair = 100 / total;
-    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
     var msgs = {
-      friendly: 'You did ' + yourPct.toFixed(0) + '% of the work (' + yourH + 'h). Fair share was ' + fair.toFixed(0) + '%. You\'re a team player! 🌟',
+      friendly: 'You did ' + yourPct.toFixed(0) + '% of the work (' + yourH + 'h). Fair share was ' + fair.toFixed(0) + '%. You\'re a team player! ' + renderIcon('star', 14),
       brutal: 'You completed <strong>' + yourPct.toFixed(0) + '%</strong> of the project while ' + others + ' member' + (others > 1 ? 's' : '') + ' contributed <strong>emotional support</strong>. Fair share: ' + fair.toFixed(0) + '%. You did ' + (yourPct - fair).toFixed(0) + '% more than your share.',
-      'passive-aggressive': 'Oh, you only did ' + yourPct.toFixed(0) + '% of the work? I\'m sure the other ' + others + ' members\' ' + theirH + 'h each was very helpful. 😊',
+      'passive-aggressive': 'Oh, you only did ' + yourPct.toFixed(0) + '% of the work? I\'m sure the other ' + others + ' members\' ' + theirH + 'h each was very helpful. ' + renderIcon('smile', 14),
       'corporate-hr': 'Resource allocation analysis: You contributed ' + yourPct.toFixed(0) + '% of total project hours. Team equity gap: ' + (yourPct - fair).toFixed(0) + '%. Recommend team restructuring.',
       'indian-parent': 'Beta, you did ' + yourPct.toFixed(0) + '% of the project? That\'s ' + (yourPct - fair).toFixed(0) + '% more than your share. Sharma ji\'s son\'s group all did equal work.',
-      whatsapp: 'Group project mein tera ' + yourPct.toFixed(0) + '% contribution? 😂 Baaki ' + others + ' log toh "moral support" de rahe the. Fair share tha ' + fair.toFixed(0) + '% lekin tu ' + (yourPct - fair).toFixed(0) + '% zyada le gaya. Agli baar group chat mein hi project kar lena. 💀'
+      whatsapp: 'Group project mein tera ' + yourPct.toFixed(0) + '% contribution? 😂 Baaki ' + others + ' log toh "moral support" de rahe the. Fair share tha ' + fair.toFixed(0) + '% lekin tu ' + (yourPct - fair).toFixed(0) + '% zyada le gaya. Agli baar group chat mein hi project kar lena. ' + renderIcon('skull', 14)
     };
     document.getElementById('result-text').innerHTML = msgs[t] || msgs.brutal;
     document.getElementById('load-results').innerHTML =

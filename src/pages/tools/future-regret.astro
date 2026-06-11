@@ -6,10 +6,10 @@ const seoKeywords = "future regret calculator, goal tracker, procrastination reg
 <Layout title="Future Regret Simulator — RealityCheck Tools" description="Calculate how disappointed Future You will be about the goals you didn't start." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>Future Regret Simulator</h1>
-    <p class="subtitle">Calculate how disappointed Future You will be about the goals you didn't start.</p>
+    <p class="subtitle">Pata kar Future Tu kitna disappointed hoga un goals ke baare mein jo tune start nahi kiye.</p>
   </div>
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
     <div class="tool-input-group">
       <label for="goal">Your goal</label>
       <select id="goal">
@@ -29,7 +29,7 @@ const seoKeywords = "future regret calculator, goal tracker, procrastination reg
       <label for="dailyEffort">Daily effort required (minutes)</label>
       <input type="number" id="dailyEffort" min="5" max="480" step="5" value="30" />
     </div>
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Regret My Choices</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Apna Pachtawa Dekh</button>
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
         <div class="result-text" id="result-text"></div>
@@ -45,11 +45,11 @@ const seoKeywords = "future regret calculator, goal tracker, procrastination reg
     var effort = parseInt(document.getElementById('dailyEffort').value) || 30;
     var totalHours = months * 30 * (effort / 60);
     var labels = { fitness: 'healthier', coding: 'building apps', savings: 'wealthier', business: 'an entrepreneur', writing: 'an author', language: 'multilingual' };
-    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
     var msgs = {
-      friendly: 'If you had started ' + months + ' months ago, you\'d be ' + totalHours.toFixed(0) + ' hours into ' + (labels[goal] || 'your goal') + '. It\'s not too late! 🌟',
+      friendly: 'If you had started ' + months + ' months ago, you\'d be ' + totalHours.toFixed(0) + ' hours into ' + (labels[goal] || 'your goal') + '. It\'s not too late! ' + renderIcon('star', 14),
       brutal: 'If you had started <strong>' + months + ' months ago</strong>, Future You would currently be <strong>less disappointed</strong>. You\'ve wasted <strong>' + totalHours.toFixed(0) + ' hours</strong> of potential ' + (labels[goal] || 'progress') + '.',
-      'passive-aggressive': months + ' months. ' + totalHours.toFixed(0) + ' hours. ' + (labels[goal] || 'nothing') + '. But sure, you\'ll start next month. 😊',
+      'passive-aggressive': months + ' months. ' + totalHours.toFixed(0) + ' hours. ' + (labels[goal] || 'nothing') + '. But sure, you\'ll start next month. ' + renderIcon('smile', 14),
       'corporate-hr': 'Goal initiation delay: ' + months + ' months. Opportunity cost: ' + totalHours.toFixed(0) + ' hours of unrealized ' + (labels[goal] || 'development') + ' potential. Let\'s schedule a start-date alignment.',
       'indian-parent': 'Beta, it\'s been ' + months + ' months and you haven\'t started ' + goal + '? That\'s ' + totalHours.toFixed(0) + ' hours lost. Sharma ji\'s son started yesterday and is already ' + (labels[goal] || 'ahead') + '.',
       whatsapp: 'Bhai, ' + months + ' months ho gaye bas "start karega" karte karte? ' + totalHours.toFixed(0) + ' hours waste. Future tu rohega aur tu hi hassega. Aaj hi start kar warna main hi tera reminder ban ke aaunga. 🔔👀'

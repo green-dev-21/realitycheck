@@ -8,11 +8,11 @@ const seoKeywords = "sleep debt calculator, sleep deprivation test, circadian rh
 <Layout title="Sleep Debt Calculator — RealityCheck Tools" description="Find out how many hours of sleep you owe your body (interest compounding daily). Brutal sleep deprivation reality check." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>Sleep Debt Calculator</h1>
-    <p class="subtitle">Find out how many hours of sleep you owe your body (interest compounding daily).</p>
+    <p class="subtitle">Pata kar tu apne body ko kitni neend ka karza de raha hai (interest roz badh raha hai).</p>
   </div>
 
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
 
     <div class="tool-input-group">
       <label for="avgSleepHours">Average sleep per night</label>
@@ -29,7 +29,7 @@ const seoKeywords = "sleep debt calculator, sleep deprivation test, circadian rh
       <input type="number" id="daysTracked" min="1" max="365" step="1" value="30" />
     </div>
 
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Calculate My Sleep Debt</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Neend Ka Hisaab</button>
 
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
@@ -51,15 +51,15 @@ const seoKeywords = "sleep debt calculator, sleep deprivation test, circadian rh
     var totalDebtDays = totalDebtHours / 24;
     var estimatedAge = 30 + Math.max(0, Math.round(idealSleep - avgSleep) * 3);
 
-    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
 
     var messages = {
-      'friendly': 'You currently owe your body <strong>' + totalDebtHours.toFixed(1) + ' hours</strong> of sleep. That\'s <strong>' + totalDebtDays.toFixed(1) + ' full days</strong>. Try to catch up! 🌟',
+      'friendly': 'You currently owe your body <strong>' + totalDebtHours.toFixed(1) + ' hours</strong> of sleep. That\'s <strong>' + totalDebtDays.toFixed(1) + ' full days</strong>. Try to catch up! ' + renderIcon('star', 14),
       'brutal': 'You currently owe your body <strong>' + totalDebtHours.toFixed(1) + ' hours</strong> of sleep. That\'s <strong>' + totalDebtDays.toFixed(1) + ' full days</strong> of unconsciousness. Interest compounds through: mood swings (active), decision making (impaired), and questionable life choices (inevitable).',
-      'passive-aggressive': 'Only ' + totalDebtHours.toFixed(1) + ' hours of sleep debt? That\'s ' + totalDebtDays.toFixed(1) + ' days. I\'m sure your dark circles are a fashion choice. 😊',
+      'passive-aggressive': 'Only ' + totalDebtHours.toFixed(1) + ' hours of sleep debt? That\'s ' + totalDebtDays.toFixed(1) + ' days. I\'m sure your dark circles are a fashion choice. ' + renderIcon('smile', 14),
       'corporate-hr': 'Sleep deficit analysis: ' + totalDebtHours.toFixed(1) + ' hours accrued over ' + daysTracked + ' days. That\'s ' + totalDebtDays.toFixed(1) + ' full days of productivity gap. Let\'s schedule a rest optimization initiative.',
       'indian-parent': 'Beta, you owe your body ' + totalDebtHours.toFixed(1) + ' hours of sleep. That\'s ' + totalDebtDays.toFixed(1) + ' days. No wonder you look tired. Sharma ji\'s son sleeps 8 hours AND still runs a startup.',
-      'whatsapp': 'Yaar, ' + totalDebtHours.toFixed(1) + ' hours neend ki debt hai tere paas! 😴 ' + totalDebtDays.toFixed(1) + ' din puri neend nahi li. Interest badh raha hai — mood swings up, decision making down. Jaake so ja pehle. Bas instagram scroll mat kar. 📱❌'
+      'whatsapp': 'Yaar, ' + totalDebtHours.toFixed(1) + ' hours neend ki debt hai tere paas! 😴 ' + totalDebtDays.toFixed(1) + ' din puri neend nahi li. Interest badh raha hai — mood swings up, decision making down. Jaake so ja pehle. Bas instagram scroll mat kar. 📱' + renderIcon('xIcon', 14)
     };
 
     var msg = messages[tone] || messages.brutal;
@@ -73,7 +73,7 @@ const seoKeywords = "sleep debt calculator, sleep deprivation test, circadian rh
     document.getElementById('debt-results').innerHTML =
       '<p style="margin-bottom:8px;">At this rate, you\'ll need to start hibernating by age <strong>' + estimatedAge + '</strong>.</p>' +
       '<p style="color:' + symptomColor + ';font-weight:600;margin-top:8px;">' +
-      (dailyDebt > 0 ? '⚠️ ' : '✅ ') + 'Diagnosis: ' + symptomText + '</p>' +
+      (dailyDebt > 0 ? renderIcon('alert', 14) + ' ' : renderIcon('check', 14) + ' ') + 'Diagnosis: ' + symptomText + '</p>' +
       '<p style="margin-top:12px;font-size:13px;color:var(--muted);">Daily deficit: ' + dailyDebt.toFixed(1) + 'h | Total: ' + totalDebtHours.toFixed(1) + 'h (' + totalDebtDays.toFixed(1) + ' days)</p>';
 
     document.getElementById('results').style.display = 'block';

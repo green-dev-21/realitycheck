@@ -1,4 +1,6 @@
 ---
+import { icon } from '../lib/icons';
+
 export interface Props {
   resultText: string;
   toolName: string;
@@ -18,8 +20,8 @@ const { resultText, toolName, value } = Astro.props;
     </div>
   </div>
   <div class="share-section">
-    <button class="share-btn" id="copy-share-btn">📋 Copy Image</button>
-    <a class="share-btn" id="twitter-share-btn" href="#" target="_blank" rel="noopener">𝕏 Share on X</a>
+    <button class="share-btn" id="copy-share-btn">{icon('copy', 14)} Copy Image</button>
+    <a class="share-btn" id="twitter-share-btn" href="#" target="_blank" rel="noopener">{icon('twitter', 14)} Share on X</a>
   </div>
 </div>
 
@@ -141,12 +143,12 @@ const { resultText, toolName, value } = Astro.props;
           if (blob) {
             navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
             copyBtn.textContent = 'Copied!';
-            setTimeout(function() { copyBtn.textContent = '📋 Copy Image'; }, 2000);
+            setTimeout(function() { copyBtn.innerHTML = renderIcon('copy', 14) + ' Copy Image'; }, 2000);
           }
         });
       } catch(e) {
-        copyBtn.textContent = 'Try screenshot';
-        setTimeout(function() { copyBtn.textContent = '📋 Copy Image'; }, 2000);
+        copyBtn.innerHTML = renderIcon('check', 14) + ' Try screenshot';
+        setTimeout(function() { copyBtn.innerHTML = renderIcon('copy', 14) + ' Copy Image'; }, 2000);
       }
     });
 

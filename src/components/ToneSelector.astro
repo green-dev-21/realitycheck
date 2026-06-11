@@ -1,13 +1,15 @@
 ---
+import { icon } from '../lib/icons';
+
 const { currentTone = 'brutal' } = Astro.props;
 
 const tones = [
-  { id: 'friendly', label: 'Friendly', emoji: '💙' },
-  { id: 'brutal', label: 'Brutal', emoji: '🔥' },
-  { id: 'passive-aggressive', label: 'Passive-Aggressive', emoji: '😊' },
-  { id: 'corporate-hr', label: 'Corporate HR', emoji: '📊' },
-  { id: 'indian-parent', label: 'Indian Parent', emoji: '🇮🇳' },
-  { id: 'whatsapp', label: 'WhatsApp', emoji: '💬' },
+  { id: 'friendly', label: 'Friendly', iconName: 'star' },
+  { id: 'brutal', label: 'Brutal', iconName: 'flame' },
+  { id: 'passive-aggressive', label: 'Passive-Aggressive', iconName: 'smile' },
+  { id: 'corporate-hr', label: 'Corporate HR', iconName: 'barChart' },
+  { id: 'indian-parent', label: 'Indian Parent', iconName: 'indianRupee' },
+  { id: 'whatsapp', label: 'WhatsApp', iconName: 'messageCircle' },
 ];
 ---
 
@@ -18,7 +20,7 @@ const tones = [
       class:list={{ active: currentTone === tone.id }}
       data-tone={tone.id}
     >
-      {tone.emoji} {tone.label}
+      {icon(tone.iconName, 14)} {tone.label}
     </button>
   ))}
 </div>

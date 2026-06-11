@@ -6,10 +6,10 @@ const seoKeywords = "AI job replacement calculator, automation risk, job securit
 <Layout title="AI Replacement Probability Generator — RealityCheck Tools" description="Find out how likely your job is to be automated. Spoiler: it's higher than you think." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>AI Replacement Probability Generator</h1>
-    <p class="subtitle">Find out how likely your job is to be automated (spoiler: it's higher than you think).</p>
+    <p class="subtitle">Pata kar teri job kitni likely hai automate hone ke liye (spoiler: teri soch se zyada).</p>
   </div>
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
     <div class="tool-input-group">
       <label for="jobTitle">Your job title</label>
       <select id="jobTitle">
@@ -33,7 +33,7 @@ const seoKeywords = "AI job replacement calculator, automation risk, job securit
       <label for="meetingHours">Hours per week in meetings that could be emails</label>
       <input type="number" id="meetingHours" min="0" max="40" step="0.5" value="8" />
     </div>
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Am I Replaceable?</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Kya Main Replaceable Hoon?</button>
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
         <div class="result-text" id="result-text"></div>
@@ -51,11 +51,11 @@ const seoKeywords = "AI job replacement calculator, automation risk, job securit
     var base = baseRisks[job] || 50;
     var prob = Math.min(99, base + (rep / 100) * 30 + (meet / 40) * 10);
     var waste = meet * 52;
-    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
     var msgs = {
-      friendly: 'Your job is approximately <strong>' + prob.toFixed(0) + '%</strong> automatable. Consider learning skills AI can\'t replicate! 🌟',
+      friendly: 'Your job is approximately <strong>' + prob.toFixed(0) + '%</strong> automatable. Consider learning skills AI can\'t replicate! ' + renderIcon('star', 14),
       brutal: 'Your job is <strong>' + prob.toFixed(0) + '%</strong> automatable and <strong>100% dependent</strong> on pretending meetings are productive. You spend ' + meet + 'h/week in ' + waste.toFixed(0) + ' hours/year of meetings that could be emails.',
-      'passive-aggressive': 'Only ' + prob.toFixed(0) + '% replaceable? I\'m sure AI will never replicate your unique talent for ' + meet + 'h of meetings. 😊',
+      'passive-aggressive': 'Only ' + prob.toFixed(0) + '% replaceable? I\'m sure AI will never replicate your unique talent for ' + meet + 'h of meetings. ' + renderIcon('smile', 14),
       'corporate-hr': 'Automation risk assessment: ' + prob.toFixed(0) + '% probability of role automation. Meeting efficiency index: ' + waste.toFixed(0) + ' hours/year below optimal. Recommend upskilling initiatives.',
       'indian-parent': 'Beta, your job is ' + prob.toFixed(0) + '% replaceable by AI. ' + meet + 'h of meetings per week? Sharma ji\'s son automated his entire workflow and now works 2 hours a day.',
       whatsapp: 'Bhai/sis, teri job ' + prob.toFixed(0) + '% replaceable hai AI se 🤖. Aur tu ' + meet + 'h/week meetings mein baitha hai jo email se ho sakti hain. ' + waste.toFixed(0) + ' hours/year waste! AI ready hai, tu ready? 👀'

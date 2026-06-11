@@ -8,11 +8,11 @@ const seoKeywords = "time waste calculator, social media addiction test, screen 
 <Layout title="Doomscroll Tax Calculator — RealityCheck Tools" description="Calculate exactly how many years of your life you've lost to the infinite scroll. Brutal time waste calculator for Instagram, TikTok, X, and YouTube." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>Doomscroll Tax Calculator</h1>
-    <p class="subtitle">Calculate how many years of your life you've sacrificed to the infinite scroll.</p>
+    <p class="subtitle">Dekh kitne saal zindagi ke tune infinite scroll mein waste kar diye.</p>
   </div>
 
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
 
     <div class="tool-input-group">
       <label for="hoursPerDay">Hours per day scrolling</label>
@@ -35,7 +35,7 @@ const seoKeywords = "time waste calculator, social media addiction test, screen 
       <input type="number" id="age" min="13" max="100" value="25" />
     </div>
 
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Calculate My Loss</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Apna Barbaad Dekh</button>
 
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
@@ -65,7 +65,7 @@ const seoKeywords = "time waste calculator, social media addiction test, screen 
       'You could have learned <strong>' + (yearlyHours / 200).toFixed(0) + ' languages</strong> fluently in that time.'
     ];
 
-    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var tone = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
     var rawMessage = messages[Math.floor(Math.random() * messages.length)];
     var message = wrapInTone(rawMessage, tone);
 
@@ -76,9 +76,9 @@ const seoKeywords = "time waste calculator, social media addiction test, screen 
     document.getElementById('result-text').innerHTML = message;
     document.getElementById('bonus-results').innerHTML =
       '<p style="color:var(--muted);margin-bottom:8px;font-size:13px;font-weight:500;">Bonus reality checks:</p>' +
-      '<p>🎬 You could have watched <strong>' + moviesWatched.toLocaleString() + '</strong> movies</p>' +
-      '<p>📚 You could have read <strong>' + booksUnread.toLocaleString() + '</strong> audiobooks</p>' +
-      '<p>🌿 You haven\'t touched grass in <strong>' + daysNotTouchedGrass.toLocaleString() + '</strong> days</p>' +
+      '<p>' + renderIcon('film', 14) + ' You could have watched <strong>' + moviesWatched.toLocaleString() + '</strong> movies</p>' +
+      '<p>' + renderIcon('book', 14) + ' You could have read <strong>' + booksUnread.toLocaleString() + '</strong> audiobooks</p>' +
+      '<p>' + renderIcon('leaf', 14) + ' You haven\'t touched grass in <strong>' + daysNotTouchedGrass.toLocaleString() + '</strong> days</p>' +
       '<p style="margin-top:12px;font-size:13px;color:var(--muted);">Platform: ' + platform + '</p>';
 
     var container = document.getElementById('share-card-container');

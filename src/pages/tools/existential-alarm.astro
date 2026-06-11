@@ -6,10 +6,10 @@ const seoKeywords = "life expectancy calculator, mornings left, existential alar
 <Layout title="Existential Alarm Clock — RealityCheck Tools" description="See exactly how many mornings you have left. Life expectancy calculator with a brutal twist." seoKeywords={seoKeywords}>
   <div class="tool-hero">
     <h1>Existential Alarm Clock</h1>
-    <p class="subtitle">See exactly how many mornings you have left. No pressure.</p>
+    <p class="subtitle">Dekh teri zindagi mein kitni subahen bachi hain. No pressure.</p>
   </div>
   <div class="tool-form">
-    <ToneSelector currentTone="brutal" />
+    <ToneSelector currentTone="whatsapp" />
     <div class="tool-input-group">
       <label for="currentAge">Your current age</label>
       <input type="number" id="currentAge" min="1" max="100" value="25" />
@@ -22,7 +22,7 @@ const seoKeywords = "life expectancy calculator, mornings left, existential alar
       <label for="morningsSnoozed">Mornings you hit snooze per week</label>
       <input type="number" id="morningsSnoozed" min="0" max="7" value="5" />
     </div>
-    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Wake Me Up</button>
+    <button class="btn-primary" id="calculate-btn" style="width:100%;justify-content:center;">Jaga De</button>
     <div id="results" style="display:none;">
       <div class="result-card" id="result-card">
         <div class="result-text" id="result-text"></div>
@@ -42,14 +42,14 @@ const seoKeywords = "life expectancy calculator, mornings left, existential alar
     var christmases = yearsLeft;
     var snoozedTotal = snoozed * 52 * yearsLeft;
     var snoozedDays = snoozedTotal * 0.08;
-    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'brutal';
+    var t = document.querySelector('.tone-btn.active')?.dataset?.tone || 'whatsapp';
     var msgs = {
-      friendly: 'You have approximately <strong>' + mornings.toLocaleString() + ' mornings</strong> left. Make them count! 🌟',
+      friendly: 'You have approximately <strong>' + mornings.toLocaleString() + ' mornings</strong> left. Make them count! ' + renderIcon('star', 14),
       brutal: 'You have approximately <strong>' + mornings.toLocaleString() + ' mornings</strong> left. Maybe don\'t spend <strong>' + snoozedTotal.toLocaleString() + ' (' + snoozedDays.toFixed(0) + ' days)</strong> of them hitting snooze.',
-      'passive-aggressive': 'Only ' + mornings.toLocaleString() + ' mornings left. But sure, hit snooze ' + snoozed + 'x/week on ' + snoozedTotal.toLocaleString() + ' of them. 😊',
+      'passive-aggressive': 'Only ' + mornings.toLocaleString() + ' mornings left. But sure, hit snooze ' + snoozed + 'x/week on ' + snoozedTotal.toLocaleString() + ' of them. ' + renderIcon('smile', 14),
       'corporate-hr': 'Lifecycle projection: ' + mornings.toLocaleString() + ' remaining mornings. Snooze utilization: ' + snoozedTotal.toLocaleString() + ' instances. That\'s ' + snoozedDays.toFixed(0) + ' days of unoptimized wake cycles.',
       'indian-parent': 'Beta, you have ' + mornings.toLocaleString() + ' mornings left on this earth. You want to spend ' + snoozedTotal.toLocaleString() + ' of them sleeping in? Sharma ji\'s son wakes up at 5 AM.',
-      whatsapp: 'Bhai/sis, tere paas bas ' + mornings.toLocaleString() + ' subah bachi hain zindagi mein. ☀️ Aur tu ' + snoozedTotal.toLocaleString() + ' baar snooze marega? ' + snoozedDays.toFixed(0) + ' din barbaad sirf "5 more minutes" mein. Life short hai, snooze mat kar. ⏰💀'
+      whatsapp: 'Bhai/sis, tere paas bas ' + mornings.toLocaleString() + ' subah bachi hain zindagi mein. ☀️ Aur tu ' + snoozedTotal.toLocaleString() + ' baar snooze marega? ' + snoozedDays.toFixed(0) + ' din barbaad sirf "5 more minutes" mein. Life short hai, snooze mat kar. ' + renderIcon('clock', 14) + renderIcon('skull', 14)
     };
     var alarmColor = age > 60 ? 'var(--error)' : age > 40 ? 'var(--accent-amber)' : 'var(--accent-amber)';
     document.getElementById('result-text').innerHTML = msgs[t] || msgs.brutal;
