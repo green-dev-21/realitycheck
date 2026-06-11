@@ -1,10 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   output: 'static',
-  adapter: cloudflare(),
+  adapter: vercel({
+    imageService: true,
+  }),
   site: 'https://realitycheck.tools',
   compressHTML: true,
   build: {

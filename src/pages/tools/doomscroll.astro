@@ -96,8 +96,8 @@ const seoKeywords = "time waste calculator, social media addiction test, screen 
       '<div class="share-card-watermark">RealityCheck.tools</div>' +
       '</div></div>' +
       '<div class="share-section">' +
-      '<button class="share-btn" id="dyn-copy-btn">📋 Copy Image</button>' +
-      '<a class="share-btn" id="dyn-twitter-btn" href="' + shareUrl + '" target="_blank" rel="noopener">𝕏 Share on X</a>' +
+      '<button class="share-btn" id="dyn-copy-btn">' + renderIcon('copy', 14) + ' Copy Image</button>' +
+      '<a class="share-btn" id="dyn-twitter-btn" href="' + shareUrl + '" target="_blank" rel="noopener">' + renderIcon('xIcon', 14) + ' Share on X</a>' +
       '</div></div>';
 
     document.getElementById('dyn-copy-btn')?.addEventListener('click', async function() {
@@ -125,7 +125,7 @@ const seoKeywords = "time waste calculator, social media addiction test, screen 
           if (blob) {
             navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
             document.getElementById('dyn-copy-btn').textContent = 'Copied!';
-            setTimeout(function() { document.getElementById('dyn-copy-btn').textContent = '📋 Copy Image'; }, 2000);
+            setTimeout(function() { document.getElementById('dyn-copy-btn').innerHTML = renderIcon('copy', 14) + ' Copy Image'; }, 2000);
           }
         });
       } catch(e) {}
